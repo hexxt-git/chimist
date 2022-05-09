@@ -1,0 +1,18 @@
+body{
+    background-color: #151515;
+    color: #EEE;
+    font-family: monospace;
+    margin: 0px;
+    font-size: 35px;
+    font-weight: bold;
+}
+#container {
+    width: 100vw;
+    height: 100vh;
+}
+#gui{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    user-select: none;
+}
