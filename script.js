@@ -29,7 +29,7 @@ let canvas = $('canvas')
 let c = canvas.getContext('2d')
 let width = container.clientWidth
 let height = container.clientHeight
-let fps = 100
+let res = 4
 
 canvas.width = width
 canvas.height = height - 9
@@ -53,77 +53,78 @@ canvas.addEventListener( 'mousedown', ()=>{
 canvas.addEventListener( 'mouseup', ()=>{
     mouse.z = false
 })
-
-class Object {
-    
-//for a quad    x, y,  'quad',  width, height (square or rectangle)
-//for a circle  x, y, 'circle', radius, angle( in radians )
-
-    constructor(x, y, type, a, b, srokeStyle, fillStyle) {
-        
-        this.x = x;
-        this.y = y;
-
-        this.vx = 0;
-        this.vy = 0;
-
-        this.type = type;
-
-        switch (this.type) {
-            case 'quad':{
-                this.w = a;
-                this.h = b;
-                break
+class Part {
+    constructor ( x, y, a, child){
+        this.x = x
+        this.y = y
+        this.a = a
+        this.child = child
+        this.lines = []
+        for ( let i in this.child ){
+            this.lines.push( new Line( this.x, this.y, this.child[i].x, this.child[i].y))
+        }
+        this.addChild = function (child){
+            this.child.push(child)
+            this.lines.push( new Line( this.x, this.y, child.x, child.y))
+        }
+        this.render = function (){
+            let text = []
+            for ( let i in this.a ){
+                text.push(i)
+                text.push(this.a[i])
             }
-            case 'circle':{
-                this.r = a;
-                this.a = b;
-                break
+            text = text.join('')
+            c.fillRect( this.x - res/2 , this.y - res/2 , res, res)
+            c.strokeText( text, this.x+2, this.y-4)
+            if ( this.child != undefined ){
+                for ( let i = 0 ; i < this.child.length ; i++ ){
+                    this.child[i].render()
+                }
             }
-            case 'fillCircle':{
-                this.r = a;
-                this.a = b;
-                break
+            for ( let i = 0 ; i < this.lines.length ; i++ ){
+                this.lines[i].render()
             }
         }
-
-        this.srokeStyle = srokeStyle;
-        this.fillStyle = fillStyle;
-
+    }
+}
+class Line {
+    constructor ( startX, startY, endX, endY, count){
+        this.startX = startX
+        this.startY = startY
+        this.endX = endX
+        this.endY = endY
+        this.count = count
         this.render = ()=>{
-
-            c.strokeStyle = this.srokeStyle;
-            c.fillStyle = this.fillStyle;
-
-            switch (this.type) {
-                case 'quad': {
-                    c.fillRect(this.x, this.y, this.w, this.h);
-                    break;
-                }
-                case 'circle': {
-                    c.beginPath();
-                    c.arc(this.x, this.y, this.r, 0, this.a, false);
-                    c.stroke();
-                    break;
-                }
-                case 'fillCircle': {
-                    c.beginPath();
-                    c.arc(this.x, this.y, this.r, 0, this.a, false);
-                    c.fill();
-                    c.stroke();
-                    break;
-                }
-
-            }
-        }
-
-        this.update = ()=>{
-            this.x += this.vx
-            this.y += this.vy
+            c.stroke()
+            c.beginPath()
+            c.moveTo( startX, startY)
+            c.lineTo( endX, endY)
+            c.stroke()
         }
     }
 }
 
+function generaterdm(){
+    let nextGen
+    if ( rdm(3) != 0 ) {
+        nextGen = new Array(1).fill(null)
+    } else {
+        nextGen = new Array(rdm(1)).fill(null)
+    }
+    for ( let i in nextGen ){
+        nextGen[i] = new Part( rdm(width), rdm(height), {A:3}, generaterdm())
+    }
+    return nextGen
+}
+
+let molecule = new Part( 100, 250, {C:5,H:3}, generaterdm())
+write(molecule)
+molecule.render()
+
+
+
+
+/*
 let length = 5
 length = random( 2, 10, true)
 let step = 50
@@ -173,7 +174,7 @@ c.fillRect( x-2, y-2, 4, 4 );
     if ( i == length ) h++
     c.strokeText( 'C1H' + h, x + 2, y + 2)
 }
-
+*/
 /*
 for ( let i = 0 ; i < 4 ; i++ ){
     let h = 3;
