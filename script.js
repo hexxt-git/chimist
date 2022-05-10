@@ -125,11 +125,14 @@ class Object {
 }
 
 let length = 5
-length = random( 2, 10, true)
-let step = 50
-let verticalLine = Math.sqrt( Math.pow( step, 2) + Math.pow( step, 2) ) * 0.9
-let x = width/2 - ( step * length / 2)
+length = random( 2, 8, true)
+write(width)
+write(length)
+write(width/length/3)
+let step = 40;
+let x = width/2 - ( step * length/1.3)
 let y = height/2
+let verticalLine = Math.sqrt( Math.pow( step, 2) + Math.pow( step, 2) ) * 0.9
 
 c.fillRect( x-2, y-2, 4, 4 );
     for ( let i = 0 ; i <= length ; i++ ){
@@ -145,8 +148,8 @@ c.fillRect( x-2, y-2, 4, 4 );
     c.fillRect( x-2, y-2, 4, 4 );
     c.lineTo( x, y)
     c.stroke()
-    let branch = random( 0, 3, true)
-    if (!rdm(4)){
+    if (!rdm(2)){
+        let branch = random( 1, 3, true)
         h--
         let X = x
         let Y = y
@@ -166,7 +169,6 @@ c.fillRect( x-2, y-2, 4, 4 );
             c.stroke()
             c.fillRect( X-2, Y-2, 4, 4 );
             if ( a + 1 == branch ) H++
-            write(branch)
             c.strokeText( 'C1H' + H, X + 2, Y + 2)
         }
     }
