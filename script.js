@@ -38,21 +38,6 @@ c.fillStyle = randomColor()
 c.strokeStyle = randomColor()
 c.font = '25px monospace'
 
-let mouse = {
-    x: width/2,
-    y: height/2,
-    z: false
-}
-container.addEventListener( 'mousemove', ( event)=>{
-    mouse.x = event.x
-    mouse.y = event.y
-})
-canvas.addEventListener( 'mousedown', ()=>{
-    mouse.z = true
-})
-canvas.addEventListener( 'mouseup', ()=>{
-    mouse.z = false
-})
 class Part {
     constructor ( x, y, a, child){
         this.x = x
