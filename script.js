@@ -21,7 +21,7 @@ function $ (id){
     return document.getElementById(id);
 };
 function randomColor (){
-    return `hsl( ${rdm(360)}, ${random( 20, 70, true)}%, 50%)`
+    return `hsl( ${rdm(360)}, ${random( 15, 60, true)}%, 50%)`
 }
 
 let container = $('container')
@@ -126,19 +126,21 @@ class Object {
 
 let length = 5
 length = random( 2, 8, true)
-write(width)
-write(length)
-write(width/length/3)
 let step = 40;
 let x = width/2 - ( step * length/1.3)
 let y = height/2
 let verticalLine = Math.sqrt( Math.pow( step, 2) + Math.pow( step, 2) ) * 0.9
-
+let doubles = 0
+let double = false
+let global = {
+    C: 0,
+    H: 0,
+}
 c.fillRect( x-2, y-2, 4, 4 );
     for ( let i = 0 ; i <= length ; i++ ){
     let h = 3;
     if ( i == 0 ){
-        c.strokeText( 'C1H' + h, x + 2, y + 2)
+        c.strokeText( 'CH' + h, x + 2, y + 2)
     } 
     c.beginPath()
     c.moveTo( x, y)
@@ -148,8 +150,22 @@ c.fillRect( x-2, y-2, 4, 4 );
     c.fillRect( x-2, y-2, 4, 4 );
     c.lineTo( x, y)
     c.stroke()
-    if (!rdm(2)){
-        let branch = random( 1, 3, true)
+    if ( doubles == 0 & i != 0 ){
+        if ( double ){
+            h--
+            doubles++
+            double = false
+            c.beginPath()
+            c.moveTo( x+5, y)
+            if ( i % 2 == 0){
+                c.lineTo( x-step+5, y-step)
+            } else {
+                c.lineTo( x-step+5, y+step)
+            }
+            c.stroke()
+        }
+    } else if (1){
+        let branch = random( 2, 2, true)
         h--
         let X = x
         let Y = y
@@ -169,27 +185,25 @@ c.fillRect( x-2, y-2, 4, 4 );
             c.stroke()
             c.fillRect( X-2, Y-2, 4, 4 );
             if ( a + 1 == branch ) H++
-            c.strokeText( 'C1H' + H, X + 2, Y + 2)
+            global.C++
+            global.H += H
+            c.strokeText( 'CH' + H, X + 2, Y + 2)
         }
     }
+    if ( !rdm(5) & doubles == 0 & i != length ){
+        double = true
+        h--
+    }
     if ( i == length ) h++
-    c.strokeText( 'C1H' + h, x + 2, y + 2)
+    global.C++
+    global.H += h
+    if ( h == 0 ){
+        c.strokeText( 'C', x + 2, y + 2)
+    } else if ( h == 1 ){
+        c.strokeText( 'CH', x + 2, y + 2)
+    } else {
+        c.strokeText( 'CH'+h, x + 2, y + 2)
+    }
 }
 
-/*
-for ( let i = 0 ; i < 4 ; i++ ){
-    let h = 3;
-    c.beginPath()
-    c.moveTo( x, y)
-    c.fillRect( x-2, y-2, 4, 4)
-    h--
-    let x1 = x + step
-    let y1 = i % 2 ? y + step : + y - step;
-    c.lineTo( x1, y1)
-    c.stroke()
-    c.fillRect( x1-2, y1-2, 4, 4)
-    c.strokeText( 'C1H' + h, x + 21, + 2 y1)
-    x = x1
-    y = y1
-}
-*/
+c.strokeText(`C${global.C}H${global.H}`, 15, height-15)
