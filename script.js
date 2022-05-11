@@ -65,7 +65,7 @@ let double = false
 let triple = false
 let global = {
     C: 0,
-    H: 0,
+    H: 3,
     O: 0,
 }
 c.fillRect( x-2, y-2, 4, 4 );
@@ -149,7 +149,7 @@ for ( let i = 0 ; i <= length ; i++ ){ //alkane
             c.fillRect( x-2, y-verticalLine-2, 4, 4)
             c.strokeText( 'O', x , y - verticalLine)
         }
-        global.O += 1
+        global.O++
         c.stroke()
     }
     if ( !rdm(4) & h >= 1 ){
@@ -187,7 +187,7 @@ for ( let i = 0 ; i <= length ; i++ ){ //alkane
         h--
     }
     if ( i == length ) h++
-    global.C++
+    global.C += 1
     global.H += h
     if ( h == 0 ){
         c.strokeText( 'C', x + 2, y + 2)
@@ -197,6 +197,5 @@ for ( let i = 0 ; i <= length ; i++ ){ //alkane
         c.strokeText( 'CH'+h, x + 2, y + 2)
     }
 }
-
 
 global.O != 0 ? c.strokeText(`C${global.C}H${global.H}O${global.O}`, 15, height-25) : c.strokeText(`C${global.C}H${global.H}`, 15, height-25)
