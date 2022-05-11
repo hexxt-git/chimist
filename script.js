@@ -194,7 +194,7 @@ c.fillRect( x-2, y-2, 4, 4 );
 
         }
     }
-    if (!rdm(3) & h >= 1){
+    if ( !rdm(4) & h >= 1 ){
         let branch = random( 2, 2, true)
         h--
         let X = x
