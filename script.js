@@ -130,8 +130,9 @@ let step = 40;
 let x = width/2 - ( step * length/1.3)
 let y = height/2
 let verticalLine = Math.sqrt( Math.pow( step, 2) + Math.pow( step, 2) ) * 0.9
-let doubles = 0
+let special = rdm(1)
 let double = false
+let triple = false
 let global = {
     C: 0,
     H: 0,
@@ -152,7 +153,7 @@ c.fillRect( x-2, y-2, 4, 4 );
     c.stroke()
     if ( double ){
         h--
-        doubles++
+        special++
         double = false
         c.beginPath()
         c.moveTo( x+5, y)
@@ -163,7 +164,37 @@ c.fillRect( x-2, y-2, 4, 4 );
         }
         c.stroke()
     }
-    if (!rdm(3)){
+    if ( triple ){
+        h--
+        h--
+        special++
+        triple = false
+
+        if ( i % 2 == 0){
+            c.beginPath()
+            c.moveTo( x+5, y)
+            c.lineTo( x-step+5, y-step)
+            c.stroke()
+
+            c.beginPath()
+            c.moveTo( x-5, y)
+            c.lineTo( x-step-5, y-step)
+            c.stroke()
+
+        } else {
+            c.beginPath()
+            c.moveTo( x+5, y)
+            c.lineTo( x-step+5, y+step)
+            c.stroke()
+
+            c.beginPath()
+            c.moveTo( x-5, y)
+            c.lineTo( x-step-5, y+step)
+            c.stroke()
+
+        }
+    }
+    if (!rdm(3) & h >= 1){
         let branch = random( 2, 2, true)
         h--
         let X = x
@@ -189,8 +220,12 @@ c.fillRect( x-2, y-2, 4, 4 );
             c.strokeText( 'CH' + H, X + 2, Y + 2)
         }
     }
-    if ( !rdm(5) & doubles == 0 & i != length ){
+    if ( !rdm(4) & special == 0 & i != length ){
         double = true
+        h--
+    } else if ( rdm(4) & special == 0 & i != length & h >= 2){
+        triple = true
+        h--
         h--
     }
     if ( i == length ) h++
