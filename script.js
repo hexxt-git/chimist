@@ -150,21 +150,20 @@ c.fillRect( x-2, y-2, 4, 4 );
     c.fillRect( x-2, y-2, 4, 4 );
     c.lineTo( x, y)
     c.stroke()
-    if ( doubles == 0 & i != 0 ){
-        if ( double ){
-            h--
-            doubles++
-            double = false
-            c.beginPath()
-            c.moveTo( x+5, y)
-            if ( i % 2 == 0){
-                c.lineTo( x-step+5, y-step)
-            } else {
-                c.lineTo( x-step+5, y+step)
-            }
-            c.stroke()
+    if ( double ){
+        h--
+        doubles++
+        double = false
+        c.beginPath()
+        c.moveTo( x+5, y)
+        if ( i % 2 == 0){
+            c.lineTo( x-step+5, y-step)
+        } else {
+            c.lineTo( x-step+5, y+step)
         }
-    } else if (1){
+        c.stroke()
+    }
+    if (!rdm(3)){
         let branch = random( 2, 2, true)
         h--
         let X = x
@@ -206,4 +205,4 @@ c.fillRect( x-2, y-2, 4, 4 );
     }
 }
 
-c.strokeText(`C${global.C}H${global.H}`, 15, height-15)
+c.strokeText(`C${global.C}H${global.H}`, 15, height-25)
