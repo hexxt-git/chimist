@@ -31,11 +31,38 @@ let width = container.clientWidth
 let height = container.clientHeight
 let fps = 100
 
+
 canvas.width = width
 canvas.height = height - 9
 
-c.fillStyle = randomColor()
-c.strokeStyle = randomColor()
+$('button').addEventListener('click', ()=>{
+    localStorage.setItem('dark', localStorage.getItem('dark')/1+1 )
+    updateMode()
+    location.reload(); 
+})
+function updateMode(){
+    if(localStorage.getItem('dark')%2 == 0){
+        $('button').style = `
+        filter: invert(100%);
+        -webkit-filter: invert(100%);`
+        container.style ='background-color: #fff;'
+        c.strokeStyle = '#111'
+        c.fillStyle = '#111'
+    } else {
+        $('button').style = `
+        filter: invert(0%);
+        -webkit-filter: invert(0%);`
+        container.style ='background-color: #151521;'
+        c.fillStyle = randomColor()
+        c.strokeStyle = randomColor()
+    }
+}
+updateMode()
+updateMode()
+
+
+
+
 c.font = '25px monospace'
 
 let mouse = {
@@ -56,7 +83,7 @@ canvas.addEventListener( 'mouseup', ()=>{
 
 let length = 5
 length = random( 2, 8, true)
-let step = 40;
+let step = 60;
 let x = width/2 - ( step * length/1.3)
 let y = height/2
 let verticalLine = Math.sqrt( Math.pow( step, 2) + Math.pow( step, 2) ) * 0.9

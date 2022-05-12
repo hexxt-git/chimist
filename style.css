@@ -1,5 +1,4 @@
 body{
-    background-color: #151521;
     color: #EEE;
     font-family: monospace;
     margin: 0px;
@@ -7,6 +6,7 @@ body{
     font-weight: bold;
 }
 #container {
+    background-color: #151521;
     width: 100vw;
     height: 100vh;
 }
@@ -15,4 +15,23 @@ body{
     top: 0px;
     left: 0px;
     user-select: none;
+}
+#button{
+    background-color: #ddd;
+    height: 70px;
+    width: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    transform: scale(0.8);
+    -webkit-transform: scale(0.8);
+    -moz-transform: scale(0.8);
+    -ms-transform: scale(0.8);
+    -o-transform: scale(0.8);
+    cursor: pointer;
 }
