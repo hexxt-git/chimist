@@ -65,7 +65,7 @@ let double = false
 let triple = false
 let global = {
     C: 0,
-    H: 3,
+    H: 0,
     O: 0,
 }
 c.fillRect( x-2, y-2, 4, 4 );
@@ -73,6 +73,8 @@ c.fillRect( x-2, y-2, 4, 4 );
 for ( let i = 0 ; i <= length ; i++ ){ //alkane
     let h = 3;
     if ( i == 0 ){
+        global.H += h
+        global.C += 1
         c.strokeText( 'CH' + h, x + 2, y + 2)
     } 
     c.beginPath()
@@ -187,7 +189,7 @@ for ( let i = 0 ; i <= length ; i++ ){ //alkane
         h--
     }
     if ( i == length ) h++
-    global.C += 1
+    global.C++
     global.H += h
     if ( h == 0 ){
         c.strokeText( 'C', x + 2, y + 2)
