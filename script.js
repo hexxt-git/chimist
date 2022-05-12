@@ -182,7 +182,7 @@ for ( let i = 0 ; i <= length ; i++ ){ //alkane
         c.stroke()
     }
     if ( !rdm(4) & h >= 1 ){
-        let branch = random( 2, 2, true)
+        let branch = random( 1, 4, true)
         h--
         let X = x
         let Y = y
