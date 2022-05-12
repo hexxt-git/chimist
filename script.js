@@ -83,7 +83,7 @@ canvas.addEventListener( 'mouseup', ()=>{
 
 let length = 5
 length = random( 2, 8, true)
-let step = 60;
+let step = 50;
 let x = width/2 - ( step * length/1.3)
 let y = height/2
 let verticalLine = Math.sqrt( Math.pow( step, 2) + Math.pow( step, 2) ) * 0.9
@@ -102,6 +102,7 @@ for ( let i = 0 ; i <= length ; i++ ){ //alkane
     if ( i == 0 ){
         global.H += h
         global.C += 1
+        if ( localStorage.getItem('dark') % 2 == 0 ) c.fillText( 'CH' + h, x + 2, y + 2)
         c.strokeText( 'CH' + h, x + 2, y + 2)
     } 
     c.beginPath()
@@ -172,10 +173,12 @@ for ( let i = 0 ; i <= length ; i++ ){ //alkane
         if ( i % 2 == 0){
             c.lineTo( x-3, y+verticalLine)
             c.fillRect( x-2, y-2+verticalLine, 4, 4)
+            if ( localStorage.getItem('dark') % 2 == 0 ) c.fillText( 'O', x , y + verticalLine)
             c.strokeText( 'O', x , y + verticalLine)
         } else {
             c.lineTo( x-3, y-verticalLine)
             c.fillRect( x-2, y-verticalLine-2, 4, 4)
+            if ( localStorage.getItem('dark') % 2 == 0 ) c.fillText( 'O', x , y - verticalLine)
             c.strokeText( 'O', x , y - verticalLine)
         }
         global.O++
@@ -204,6 +207,7 @@ for ( let i = 0 ; i <= length ; i++ ){ //alkane
             if ( a + 1 == branch ) H++
             global.C++
             global.H += H
+            if ( localStorage.getItem('dark') % 2 == 0 ) c.fillText( 'CH' + H, X + 2, Y + 2)
             c.strokeText( 'CH' + H, X + 2, Y + 2)
         }
     }
@@ -219,12 +223,16 @@ for ( let i = 0 ; i <= length ; i++ ){ //alkane
     global.C++
     global.H += h
     if ( h == 0 ){
+        if ( localStorage.getItem('dark') % 2 == 0 ) c.fillText( 'C', x + 2, y + 2)
         c.strokeText( 'C', x + 2, y + 2)
     } else if ( h == 1 ){
+        if ( localStorage.getItem('dark') % 2 == 0 ) c.fillText( 'CH', x + 2, y + 2)
         c.strokeText( 'CH', x + 2, y + 2)
     } else {
+        if ( localStorage.getItem('dark') % 2 == 0 ) c.fillText( 'CH'+h, x + 2, y + 2)
         c.strokeText( 'CH'+h, x + 2, y + 2)
     }
 }
 
-global.O != 0 ? c.strokeText(`C${global.C}H${global.H}O${global.O}`, 15, height-25) : c.strokeText(`C${global.C}H${global.H}`, 15, height-25)
+if( localStorage.getItem('dark') % 2 == 0 ) global.O != 0 ? c.fillText(`C${global.C}H${global.H}O${global.O}`, 15, height-25) : c.fillText(`C${global.C}H${global.H}`, 15, height-25)
+else global.O != 0 ? c.strokeText(`C${global.C}H${global.H}O${global.O}`, 15, height-25) : c.strokeText(`C${global.C}H${global.H}`, 15, height-25)

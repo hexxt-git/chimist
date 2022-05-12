@@ -18,8 +18,10 @@ body{
 }
 #button{
     background-color: #ddd;
-    height: 70px;
-    width: 70px;
+    height: 50px;
+    width: 50px;
+    padding: 10px;
+    margin: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -28,10 +30,8 @@ body{
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
-    transform: scale(0.8);
-    -webkit-transform: scale(0.8);
-    -moz-transform: scale(0.8);
-    -ms-transform: scale(0.8);
-    -o-transform: scale(0.8);
     cursor: pointer;
+}
+#button img{
+    width: 100%;
 }
