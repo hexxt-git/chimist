@@ -184,7 +184,7 @@ for ( let i = 0 ; i <= length ; i++ ){ //alkane
         global.O++
         c.stroke()
     }
-    if ( !rdm(4) & h >= 1 ){
+    if ( !rdm(4) & h >= 1 & global.C < 15 ) {
         let branch = random( 1, 4, true)
         h--
         let X = x
