@@ -233,6 +233,7 @@ for ( let i = 0 ; i <= length ; i++ ){ //alkane
         c.strokeText( 'CH'+h, x + 2, y + 2)
     }
 }
+c.font = '50px monospace'
 
 if( localStorage.getItem('dark') % 2 == 0 ) global.O != 0 ? c.fillText(`C${global.C}H${global.H}O${global.O}`, 15, height-25) : c.fillText(`C${global.C}H${global.H}`, 15, height-25)
 else global.O != 0 ? c.strokeText(`C${global.C}H${global.H}O${global.O}`, 15, height-25) : c.strokeText(`C${global.C}H${global.H}`, 15, height-25)
