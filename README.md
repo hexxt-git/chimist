@@ -1,0 +1,2 @@
+# chimist
+generate random chimcals
