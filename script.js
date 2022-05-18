@@ -31,36 +31,73 @@ let width = container.clientWidth
 let height = container.clientHeight
 let fps = 100
 
-
 canvas.width = width
 canvas.height = height - 9
 
-$('button').addEventListener('click', ()=>{
+$('modeBtn').addEventListener('click', ()=>{
     localStorage.setItem('dark', localStorage.getItem('dark')/1+1 )
     updateMode()
     location.reload(); 
 })
 function updateMode(){
     if(localStorage.getItem('dark')%2 == 0){
-        $('button').style = `
+        $('9').style = `
         filter: invert(100%);
         -webkit-filter: invert(100%);`
+        $('modeBtn').style = `
+        filter: invert(100%);
+        -webkit-filter: invert(100%);`
+        $('cheatBtn').style = `
+        filter: invert(100%);
+        -webkit-filter: invert(100%);`
+        $('reloadBtn').style = `
+        filter: invert(100%);
+        -webkit-filter: invert(100%);`
+        $('cheatSheet').style = `
+        filter: invert(0%);
+        -webkit-filter: invert(0%);`
+
         container.style ='background-color: #fff;'
         c.strokeStyle = '#111'
         c.fillStyle = '#111'
     } else {
-        $('button').style = `
+        $('9').style = `
         filter: invert(0%);
         -webkit-filter: invert(0%);`
+        $('modeBtn').style = `
+        filter: invert(0%);
+        -webkit-filter: invert(0%);`
+        $('cheatBtn').style = `
+        filter: invert(0%);
+        -webkit-filter: invert(0%);`
+        $('reloadBtn').style = `
+        filter: invert(0%);
+        -webkit-filter: invert(0%);`
+        $('cheatSheet').style = `
+        filter: invert(95%);
+        -webkit-filter: invert(95%);`
+
         container.style ='background-color: #151521;'
         c.fillStyle = randomColor()
         c.strokeStyle = randomColor()
     }
 }
 updateMode()
-updateMode()
-
-
+function cheatUpdate(){
+    if(localStorage.getItem('cheat')%2 == 0){
+        $('cheatSheet').style.visibility = 'hidden'
+    } else {
+        $('cheatSheet').style.visibility = 'visible'
+    }
+}
+cheatUpdate()
+ $('cheatBtn').addEventListener( 'click' , () => {
+    localStorage.setItem('cheat', localStorage.getItem('cheat')/1+1 )
+    cheatUpdate()
+})
+$('reloadBtn').addEventListener( 'click', ()=>{
+    location.reload(); 
+})
 
 
 c.font = '25px monospace'
@@ -97,7 +134,8 @@ let global = {
 }
 c.fillRect( x-2, y-2, 4, 4 );
 
-for ( let i = 0 ; i <= length ; i++ ){ //alkane
+
+for ( let i = 0 ; i <= length ; i++ ){
     let h = 3;
     if ( i == 0 ){
         global.H += h
@@ -156,7 +194,7 @@ for ( let i = 0 ; i <= length ; i++ ){ //alkane
 
         }
     }
-    if (!rdm(3) & h >= 2 & special == 0){
+    if ( !rdm(10) & h >= 2 & special == 0 ){
         special++
         h--
         h--
@@ -184,7 +222,36 @@ for ( let i = 0 ; i <= length ; i++ ){ //alkane
         global.O++
         c.stroke()
     }
-    if ( !rdm(4) & h >= 1 & global.C < 15 ) {
+    if ( !rdm(3) & h >= 2 & special == 0){
+        special++
+        h--
+        c.beginPath()
+        c.moveTo( x+3, y)
+        if ( i % 2 == 0){
+            c.lineTo( x+3, y+verticalLine)
+        } else {
+            c.lineTo( x+3, y-verticalLine)
+        }
+        c.stroke()
+        c.beginPath()
+        c.moveTo( x-3, y)
+        if ( i % 2 == 0){
+            c.lineTo( x-3, y+verticalLine)
+            c.fillRect( x-2, y-2+verticalLine, 4, 4)
+            if ( localStorage.getItem('dark') % 2 == 0 ) c.fillText( 'OH', x , y + verticalLine)
+            c.strokeText( 'OH', x , y + verticalLine)
+        } else {
+            c.lineTo( x-3, y-verticalLine)
+            c.fillRect( x-2, y-verticalLine-2, 4, 4)
+            if ( localStorage.getItem('dark') % 2 == 0 ) c.fillText( 'OH', x , y - verticalLine)
+            c.strokeText( 'OH', x , y - verticalLine)
+        }
+        global.O++
+        global.H++
+        c.stroke()
+    }
+
+    if ( !rdm(6) & h >= 1 & global.C < 15 & i != length ) {
         let branch = random( 1, 4, true)
         h--
         let X = x
@@ -211,10 +278,31 @@ for ( let i = 0 ; i <= length ; i++ ){ //alkane
             c.strokeText( 'CH' + H, X + 2, Y + 2)
         }
     }
-    if ( !rdm(4) & special == 0 & i != length ){
+    if ( !rdm(2) & special == 0 & i == length ){
+        special++
+        h--
+        c.beginPath()
+        c.moveTo( x, y)
+        c.lineTo( x+step, y%2?y+step-2:y-step)
+        if ( localStorage.getItem('dark') % 2 == 0 ) c.fillText( 'OH', x+step, y%2?y+step-2:y-step)
+        c.strokeText( 'OH', x+step, y%2?y+step:y-step)
+        c.fillRect( x+step-2, y%2?y+step-2:y-step-2, 4, 4 );
+        c.moveTo( x+2, y)
+        c.lineTo( x+2+step, y%2?y-step-2:y+step)
+        c.moveTo( x-2, y)
+        c.lineTo( x-2+step, y%2?y-step-2:y+step)
+        if ( localStorage.getItem('dark') % 2 == 0 ) c.fillText( 'O', x+5+step, y%2?y-step-2:y+step)
+        c.strokeText( 'O', x+5+step, y%2?y-step-2:y+step)
+        c.fillRect( x+step-2, y%2?y-step-2:y+step-2, 4, 4 );
+        c.stroke()
+        global.H += 1
+        global.O += 2
+    }
+    if ( !rdm(5) & special == 0 & i != length ){
         double = true
         h--
-    } else if ( rdm(4) & special == 0 & i != length & h >= 2){
+    }
+    if ( !rdm(5) & special == 0 & i != length & h >= 2){
         triple = true
         h--
         h--

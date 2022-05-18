@@ -16,7 +16,7 @@ body{
     left: 0px;
     user-select: none;
 }
-#button{
+.button{
     background-color: #ddd;
     height: 50px;
     width: 50px;
@@ -32,6 +32,16 @@ body{
     -o-border-radius: 10px;
     cursor: pointer;
 }
-#button img{
+.button img{
     width: 100%;
+}
+#cheatSheet{
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    height: 100vh;
+}
+#cheatSheet img{
+    max-width: 60vw;
+    max-height: 100%;
 }
