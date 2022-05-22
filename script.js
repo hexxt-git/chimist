@@ -222,12 +222,12 @@ for ( let i = 0 ; i <= length ; i++ ){
         global.O++
         c.stroke()
     }
-    if ( !rdm(3) & h >= 2 & special == 0){
+    if ( !rdm(3) & h >= 2 & special == 0 ){
         special++
         h--
         c.beginPath()
         c.moveTo( x+3, y)
-        if ( i % 2 == 0){
+        if ( i % 2 == 1){
             c.lineTo( x+3, y+verticalLine)
         } else {
             c.lineTo( x+3, y-verticalLine)
@@ -235,7 +235,7 @@ for ( let i = 0 ; i <= length ; i++ ){
         c.stroke()
         c.beginPath()
         c.moveTo( x-3, y)
-        if ( i % 2 == 0){
+        if ( i % 2 == 1){
             c.lineTo( x-3, y+verticalLine)
             c.fillRect( x-2, y-2+verticalLine, 4, 4)
             if ( localStorage.getItem('dark') % 2 == 0 ) c.fillText( 'OH', x , y + verticalLine)
